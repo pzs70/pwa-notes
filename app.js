@@ -94,6 +94,7 @@ async function loadSheetData() {
           // Ha üres sor, akkor is beírjuk a logba
           console.log("Üres sor találtatott a táblázatban.");
         }
+        html += `<td>${c ? c.v : ""}</td>`;
       });
       html += `</tr>`;
     });
