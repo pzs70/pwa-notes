@@ -58,7 +58,7 @@ async function loadSheetData() {
     console.log("A nyers Google Sheets válasz:", json); 
 
     const rows = json.table.rows;
-    const headerRow = json.table.cols;
+    const headers = json.table.cols;
 
     let html = `
       <h1>Listázás</h1>
@@ -68,8 +68,8 @@ async function loadSheetData() {
     `;
 
     // Fejléc cellák generálása
-    headerRow.c.forEach(c => {
-      html += `<th>${c ? c.v : ""}</th>`;
+    headers.forEach(header => {
+      html += `<th>${header.label}</th>`;
     });
 
     html += `
