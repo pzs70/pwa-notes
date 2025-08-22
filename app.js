@@ -75,3 +75,6 @@ if ("serviceWorker" in navigator) {
     console.log("Service Worker regisztrálva");
   });
 }
+if (target === "lista") {
+  loadSheetData();
+}
