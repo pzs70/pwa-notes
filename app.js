@@ -19,6 +19,7 @@ document.querySelectorAll(".nav-links a").forEach(link => {
       loadReadme();
     } else if (target === "lista") {
       loadSheetData();
+      console.log("Sheet data loaded");
     }
 
     // Menü becsukása mobilon
