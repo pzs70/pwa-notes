@@ -26,7 +26,7 @@ document.querySelectorAll(".nav-links a").forEach(link => {
 
 // README.md betöltése és renderelése
 async function loadReadme() {
-  const container = document.getElementById("readme-content");
+  const container = document.getElementById("info");
   container.innerHTML = "Betöltés folyamatban...";
   try {
     const res = await fetch("README.md", {cache: "no-cache"});
