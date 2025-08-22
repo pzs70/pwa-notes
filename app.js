@@ -39,6 +39,35 @@ async function loadReadme() {
   }
 }
 
+// Google sheet adatok betöltése
+async function loadSheetData() {
+  const container = document.getElementById("lista");
+  container.innerHTML = "<h1>Listázás</h1><p>Betöltés...</p>";
+
+  try {
+    const sheetId = "1w0JIPTdSvPST0BVbeNwkUuVr4ASntl-Ima3efw4g6v0"; // <-- IDE írd a sajátod
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+    const res = await fetch(url);
+    const text = await res.text();
+
+    // Google JSONP formátum → ki kell pucolni
+    const json = JSON.parse(text.substr(47).slice(0, -2));
+    const rows = json.table.rows;
+
+    let html = "<h1>Listázás</h1><ul>";
+    rows.forEach(r => {
+      html += `<li>${r.c.map(c => c ? c.v : "").join(" | ")}</li>`;
+    });
+    html += "</ul>";
+
+    container.innerHTML = html;
+
+  } catch (err) {
+    container.innerHTML = "<p>❌ Nem sikerült betölteni a Google Sheet-et.</p>";
+    console.error(err);
+  }
+}
 
 // Service Worker regisztráció
 if ("serviceWorker" in navigator) {
