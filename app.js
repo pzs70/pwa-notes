@@ -18,6 +18,10 @@ document.querySelectorAll(".nav-links a").forEach(link => {
     if (target === "info") {
       loadReadme();
     }
+    // Lista
+    if (target === "lista") {
+      loadSheetData();
+    }
 
     // Menü becsukása mobilon
     document.querySelector(".nav-links").classList.remove("show");
@@ -75,6 +79,4 @@ if ("serviceWorker" in navigator) {
     console.log("Service Worker regisztrálva");
   });
 }
-if (target === "lista") {
-  loadSheetData();
-}
+
