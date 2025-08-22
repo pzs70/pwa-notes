@@ -59,7 +59,7 @@ async function loadSheetData() {
     //const json = JSON.parse(text.substr(47).slice(0, -2));
     const rows = json.table.rows;
 
-    const headerRow = rows.shift();
+    const headerRow = table.cols;
 
     let html = `
       <h1>Listázás</h1>
