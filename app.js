@@ -17,9 +17,7 @@ document.querySelectorAll(".nav-links a").forEach(link => {
     // Ha az info oldalra megyünk, töltsük be a README.md-t
     if (target === "info") {
       loadReadme();
-    }
-    // Lista
-    if (target === "lista") {
+    } else if (target === "lista") {
       loadSheetData();
     }
 
