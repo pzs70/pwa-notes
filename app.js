@@ -57,32 +57,36 @@ async function loadSheetData() {
     const json = JSON.parse(text.substr(47).slice(0, -2));
     const rows = json.table.rows;
 
-    // Itt kezdődik a táblázat HTML kódjának létrehozása
+    // Az első sor a fejléc
+    const headerRow = rows.shift();
+
     let html = `
       <h1>Listázás</h1>
       <table border="1" style="width:100%; border-collapse: collapse;">
         <thead>
           <tr>
-            <th>Idő</th>
-            <th>Megjegyzés</th>
-            <th>Érték</th>
-            <th>Státusz</th>
+    `;
+
+    // Fejléc cellák generálása
+    headerRow.c.forEach(c => {
+      html += `<th>${c ? c.v : ""}</th>`;
+    });
+
+    html += `
           </tr>
         </thead>
         <tbody>
     `;
 
+    // Adat sorok generálása
     rows.forEach(r => {
-      // Itt minden sorhoz létrehozunk egy <tr> elemet
       html += `<tr>`;
       r.c.forEach(c => {
-        // Minden cellához létrehozunk egy <td> elemet
         html += `<td>${c ? c.v : ""}</td>`;
       });
       html += `</tr>`;
     });
 
-    // Befejezzük a táblázatot
     html += `
         </tbody>
       </table>
