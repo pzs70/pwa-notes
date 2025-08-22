@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PWA Jegyzet App</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Jegyzet App</div>
+      <button class="menu-toggle">☰</button>
+      <ul class="nav-links">
+        <li><a href="#uj">Új adat bevitele</a></li>
+        <li><a href="#lista">Listázás</a></li>
+        <li><a href="#info">Infó</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="content">
+    <section id="uj">
+      <h1>Új adat bevitele</h1>
+      <p>Itt később űrlap lesz.</p>
+    </section>
+
+    <section id="lista" style="display:none;">
+      <h1>Listázás</h1>
+      <p>Itt lesznek a jegyzetek.</p>
+    </section>
+
+    <section id="info" style="display:none;">
+      <h1>Infó</h1>
+      <p>PWA Jegyzet alkalmazás v1.0</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
