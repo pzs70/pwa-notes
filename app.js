@@ -53,6 +53,8 @@ async function loadSheetData() {
 
     const res = await fetch(url);
     const text = await res.text();
+    console.log("A nyers Google Sheets válasz:", text); 
+
 
     const json = JSON.parse(text.substr(47).slice(0, -2));
     const rows = json.table.rows;
