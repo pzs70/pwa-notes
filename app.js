@@ -53,7 +53,7 @@ async function loadSheetData() {
 
     const res = await fetch(url);
     const text = await res.text();
-    //console.log("A nyers Google Sheets válasz:", text); 
+    console.log("A nyers Google Sheets válasz:", text); 
 
 
     const json = JSON.parse(text.substr(47).slice(0, -2));
@@ -85,11 +85,7 @@ async function loadSheetData() {
       if (r && r.c) { // Ellenőrzés, ha a cellák léteznek
           r.c.forEach(c => {
             // Itt választjuk ki az "f" értékét, de ha nincs, akkor a "v"-t
-            let cellValue = (c.f) ? c.f : "c.v" ;
-
-            // Most már csak egyszer írjuk ki a logba, és a helyes értékkel
-            console.log("Mező értéke: ", cellValue);
-            
+            let cellValue = (c.f) ? c.v : "c" ;
             html += `<td>${cellValue}</td>`;
           });
       }
