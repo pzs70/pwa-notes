@@ -82,7 +82,29 @@ async function loadSheetData() {
     rows.forEach(r => {
       html += `<tr>`;
       r.c.forEach(c => {
-        html += `<td>${c ? c.v : ""}</td>`;
+        let cellValue = c ? c.v : "";
+
+        // Ellenőrizzük, hogy a cella Date() formátumban van-e
+        if (typeof cellValue === 'string' && cellValue.startsWith("Date(")) {
+          // Kiszedjük a számokat a Date()-ból
+          const matches = cellValue.match(/Date\((\d+),(\d+),(\d+)\)/);
+          if (matches && matches.length === 4) {
+            const year = parseInt(matches[1]);
+            const month = parseInt(matches[2]);
+            const day = parseInt(matches[3]);
+
+            // Létrehozunk egy új Date objektumot (a hónap 0-tól indul!)
+            const dateObj = new Date(year, month, day);
+
+            // Formázzuk a dátumot YYYY.MM.DD formátumra
+            const formattedDate = dateObj.getFullYear() + "." +
+                                  String(dateObj.getMonth() + 1).padStart(2, '0') + "." +
+                                  String(dateObj.getDate()).padStart(2, '0');
+            cellValue = formattedDate;
+          }
+        }
+        
+        html += `<td>${cellValue}</td>`;
       });
       html += `</tr>`;
     });
