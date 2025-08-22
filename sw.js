@@ -1,11 +1,12 @@
 const CACHE_NAME = "pwa-notes-cache-v1";
 const FILES_TO_CACHE = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/app.js",
-  "/manifest.json",
-  "/README.md"
+  "./",
+  "./index.html",
+  "./style.css",
+  "./app.js",
+  "./manifest.json",
+  "./README.md",
+  "https://cdn.jsdelivr.net/npm/marked/marked.min.js"
 ];
 
 // Telepítéskor cache feltöltése
