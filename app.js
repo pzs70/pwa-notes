@@ -8,7 +8,7 @@ document.querySelectorAll(".nav-links a").forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
     const target = link.getAttribute("href").substring(1);
-    console.log(target);
+    //console.log(target);
 
     document.querySelectorAll("main section").forEach(sec => {
       sec.style.display = "none";
