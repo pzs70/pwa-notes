@@ -84,7 +84,7 @@ async function loadSheetData() {
       r.c.forEach(c => {
         html += `<td>${c ? c.v : ""}</td>`;
         let cellValue = c ? c.v : "";
-        console.log(cellValue);
+        console.log("Mező értéke: ", cellValue);
       });
       html += `</tr>`;
     });
