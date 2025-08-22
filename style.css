@@ -62,3 +62,29 @@ header {
 main {
   padding: 1em;
 }
+
+/* Fejléc színezése (pl. ## Főcím) */
+#info h1 {
+  color: #007BFF; /* Kék szín */
+}
+
+/* Alfejléc színezése (pl. ### Alcím) */
+#info h2 {
+  color: #28a745; /* Zöld szín */
+}
+
+/* Bekezdések színezése */
+#info p {
+  color: #333; /* Sötétszürke szín */
+}
+
+/* Felsorolás (listák) színezése */
+#info ul, #info li {
+  color: #6c757d; /* Szürke szín */
+}
+
+/* Linkek színezése */
+#info a {
+  color: #dc3545; /* Piros szín */
+  font-weight: bold;
+}
