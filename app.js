@@ -51,7 +51,7 @@ async function loadSheetData() {
     const sheetId = "1w0JIPTdSvPST0BVbeNwkUuVr4ASntl-Ima3efw4g6v0";
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: "no-cache" });
     const text = await res.text();
 
     const json = JSON.parse(text.substr(47).slice(0, -2));
