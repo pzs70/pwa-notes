@@ -20,7 +20,7 @@ document.querySelectorAll(".nav-links a").forEach(link => {
       loadReadme();
     } else if (target === "lista") {
       loadSheetData();
-      console.log("Sheet data loaded");
+      #console.log("Sheet data loaded");
     }
 
     // Menü becsukása mobilon
@@ -49,21 +49,45 @@ async function loadSheetData() {
   container.innerHTML = "<h1>Listázás</h1><p>Betöltés...</p>";
 
   try {
-    const sheetId = "1w0JIPTdSvPST0BVbeNwkUuVr4ASntl-Ima3efw4g6v0"; // <-- IDE írd a sajátod
+    const sheetId = "1w0JIPTdSvPST0BVbeNwkUuVr4ASntl-Ima3efw4g6v0";
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
     const res = await fetch(url);
     const text = await res.text();
 
-    // Google JSONP formátum → ki kell pucolni
     const json = JSON.parse(text.substr(47).slice(0, -2));
     const rows = json.table.rows;
 
-    let html = "<h1>Listázás</h1><ul>";
+    // Itt kezdődik a táblázat HTML kódjának létrehozása
+    let html = `
+      <h1>Listázás</h1>
+      <table border="1" style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>Idő</th>
+            <th>Megjegyzés</th>
+            <th>Érték</th>
+            <th>Státusz</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+
     rows.forEach(r => {
-      html += `<li>${r.c.map(c => c ? c.v : "").join(" | ")}</li>`;
+      // Itt minden sorhoz létrehozunk egy <tr> elemet
+      html += `<tr>`;
+      r.c.forEach(c => {
+        // Minden cellához létrehozunk egy <td> elemet
+        html += `<td>${c ? c.v : ""}</td>`;
+      });
+      html += `</tr>`;
     });
-    html += "</ul>";
+
+    // Befejezzük a táblázatot
+    html += `
+        </tbody>
+      </table>
+    `;
 
     container.innerHTML = html;
 
