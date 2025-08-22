@@ -82,6 +82,18 @@ async function loadSheetData() {
     rows.forEach(r => {
       html += `<tr>`;
       r.c.forEach(c => {
+         if (r && r.c) {
+          html += `<tr>`;
+          r.c.forEach(c => {
+            let cellValue = c ? c.v : "";
+            console.log("Mező értéke: ", cellValue);
+            html += `<td>${cellValue}</td>`;
+          });
+          html += `</tr>`;
+        } else {
+          // Ha üres sor, akkor is beírjuk a logba
+          console.log("Üres sor találtatott a táblázatban.");
+        }
         html += `<td>${c ? c.v : ""}</td>`;
       });
       html += `</tr>`;
