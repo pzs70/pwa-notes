@@ -32,7 +32,7 @@ async function loadReadme() {
     const res = await fetch("README.md", {cache: "no-cache"});
     if (!res.ok) throw new Error("HTTP hiba: " + res.status);
     const md = await res.text();
-    container.innerHTML = marked.parse(md);
+    container.innerHTML = window.marked.parse(md);
   } catch (err) {
     container.innerHTML = "❌ Nem sikerült betölteni a README.md fájlt.";
     console.error("README betöltési hiba:", err);
