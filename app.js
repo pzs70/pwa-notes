@@ -59,7 +59,6 @@ async function loadSheetData() {
     const json = JSON.parse(text.substr(47).slice(0, -2));
     const rows = json.table.rows;
 
-    // Az első sor a fejléc
     const headerRow = rows.shift();
 
     let html = `
@@ -82,18 +81,19 @@ async function loadSheetData() {
 
     // Adat sorok generálása
     rows.forEach(r => {
-      html += `<tr>`;
-      r.c.forEach(c => {
-        html += `<tr>`;
-        r.c.forEach(c => {
-          let cellValue = (c && c.f) ? c.f : (c && c.v) ? c.v : "";
-          html += `<td>${cellValue}</td>`;
-        });
-        html += `</tr>`;
-         
-        html += `<td>${c ? c.v : ""}</td>`;
-      });
-      html += `</tr>`;
+      html += `<tr>`; // Új sor kezdése
+      if (r && r.c) { // Ellenőrzés, ha a cellák léteznek
+          r.c.forEach(c => {
+            // Itt választjuk ki az "f" értékét, de ha nincs, akkor a "v"-t
+            let cellValue = (c && c.f) ? c.f : (c && c.v) ? c.v : "";
+
+            // Most már csak egyszer írjuk ki a logba, és a helyes értékkel
+            console.log("Mező értéke: ", cellValue);
+            
+            html += `<td>${cellValue}</td>`;
+          });
+      }
+      html += `</tr>`; // Sor bezárása
     });
 
     html += `
@@ -102,7 +102,7 @@ async function loadSheetData() {
     `;
 
     container.innerHTML = html;
-
+    
   } catch (err) {
     container.innerHTML = "<p>❌ Nem sikerült betölteni a Google Sheet-et.</p>";
     console.error(err);
