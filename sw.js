@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-notes-cache-v3";
+const CACHE_NAME = "pwa-notes-cache-v4";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
@@ -37,7 +37,46 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
+// Lekérés esemény: "Network-first, then cache" stratégia
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    fetch(event.request)
+      .then(response => {
+        // Gyorsítótárba helyezi a friss válaszokat a következő offline használatra
+        const responseToCache = response.clone();
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+        console.log('Hálózatról betöltve:', event.request.url);
+        return response;
+      })
+      .catch(() => {
+        // Ha a hálózati kérés sikertelen, a gyorsítótárból szolgálja ki
+        console.log('Offline mód: Gyorsítótárból kiszolgálva:', event.request.url);
+        return caches.match(event.request);
+      })
+  );
+});
+
+// Aktiválás esemény:
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
+
 // Kérések kezelése
+/*
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
@@ -55,3 +94,4 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+*/
