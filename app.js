@@ -26,15 +26,19 @@ document.querySelectorAll(".nav-links a").forEach(link => {
 
 // README.md betöltése és renderelése
 async function loadReadme() {
+  const container = document.getElementById("readme-content");
+  container.innerHTML = "Betöltés folyamatban...";
   try {
-    const res = await fetch("README.md");
+    const res = await fetch("README.md", {cache: "no-cache"});
+    if (!res.ok) throw new Error("HTTP hiba: " + res.status);
     const md = await res.text();
-    document.getElementById("readme-content").innerHTML = marked.parse(md);
+    container.innerHTML = marked.parse(md);
   } catch (err) {
-    document.getElementById("readme-content").innerHTML = "Nem sikerült betölteni a README.md fájlt.";
-    console.error(err);
+    container.innerHTML = "❌ Nem sikerült betölteni a README.md fájlt.";
+    console.error("README betöltési hiba:", err);
   }
 }
+
 
 // Service Worker regisztráció
 if ("serviceWorker" in navigator) {
