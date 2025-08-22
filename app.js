@@ -85,7 +85,7 @@ async function loadSheetData() {
       if (r && r.c) { // Ellenőrzés, ha a cellák léteznek
           r.c.forEach(c => {
             // Itt választjuk ki az "f" értékét, de ha nincs, akkor a "v"-t
-            let cellValue = (c && c.f) ? c.f : c.v ;
+            let cellValue = (c.f) ? c.f : "c.v" ;
 
             // Most már csak egyszer írjuk ki a logba, és a helyes értékkel
             console.log("Mező értéke: ", cellValue);
