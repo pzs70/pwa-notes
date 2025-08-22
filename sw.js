@@ -5,8 +5,7 @@ const FILES_TO_CACHE = [
   "/style.css",
   "/app.js",
   "/manifest.json",
-  "/README.md",
-  "https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+  "/README.md"
 ];
 
 // Telepítéskor cache feltöltése
