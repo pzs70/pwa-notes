@@ -83,6 +83,7 @@ async function loadSheetData() {
       html += `<tr>`;
       r.c.forEach(c => {
         html += `<td>${c ? c.v : ""}</td>`;
+        console.log(c.v);
       });
       html += `</tr>`;
     });
