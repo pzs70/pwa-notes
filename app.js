@@ -8,7 +8,6 @@ document.querySelectorAll(".nav-links a").forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
     const target = link.getAttribute("href").substring(1);
-    console.log(target);
 
     document.querySelectorAll("main section").forEach(sec => {
       sec.style.display = "none";
@@ -25,7 +24,7 @@ document.querySelectorAll(".nav-links a").forEach(link => {
   });
 });
 
-// README.md betöltése és renderelése
+// README.md betöltése
 async function loadReadme() {
   const container = document.getElementById("info");
   container.innerHTML = "Betöltés folyamatban...";
@@ -40,7 +39,7 @@ async function loadReadme() {
   }
 }
 
-// Google sheet adatok betöltése, ID oszlop nélkül
+// Google sheet adatok betöltése async function loadSheetData() {
 async function loadSheetData() {
   const container = document.getElementById("lista");
   container.innerHTML = "<h1>Listázás</h1><p>Betöltés...</p>";
@@ -51,9 +50,8 @@ async function loadSheetData() {
 
     const res = await fetch(url, { cache: "no-cache" });
     const text = await res.text();
-    const json = JSON.parse(text.substr(47).slice(0, -2));
-    console.log("A nyers Google Sheets válasz:", json);
 
+    const json = JSON.parse(text.substr(47).slice(0, -2));
     const rows = json.table.rows;
     const headers = json.table.cols;
 
@@ -63,8 +61,8 @@ async function loadSheetData() {
         <thead><tr>
     `;
 
-    headers.forEach((header, i) => {
-      if (i > 0) html += `<th>${header.label}</th>`;
+    headers.forEach((header, index) => {
+      if (index > 0) html += `<th>${header.label}</th>`;
     });
 
     html += `</tr></thead><tbody>`;
@@ -72,8 +70,8 @@ async function loadSheetData() {
     rows.forEach(r => {
       if (!r.c) return;
       html += `<tr>`;
-      r.c.forEach((c, i) => {
-        if (i > 0) {
+      r.c.forEach((c, index) => {
+        if (index > 0) {
           let cellValue = (c && c.f) ? c.f : (c && c.v) ? c.v : "";
           html += `<td>${cellValue}</td>`;
         }
